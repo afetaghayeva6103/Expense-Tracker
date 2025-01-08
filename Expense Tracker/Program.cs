@@ -1,5 +1,6 @@
 using Expense_Tracker.DataAccess.Concretes;
 using Expense_Tracker.DataAccess.Interfaces;
+using Expense_Tracker.Profile;
 using ExpenseTracker.Domain.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IGeneralExpenseRepository, GeneralExpenseRepository>();
 
+builder.Services.AddAutoMapper(typeof(ModelMapper));
 //Register Syncfusion license
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF1cXmhPYVJzWmFZfVpgfV9DYFZUQ2YuP1ZhSXxXdkNjUX9XdXRQQWJYU0U=");
 

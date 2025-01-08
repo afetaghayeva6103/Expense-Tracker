@@ -10,6 +10,10 @@ public class Category
         Title = title;
         CategoryType = categoryType;
     }
+    public Category()
+    {
+        
+    }
 
     [Key]
     public int Id { get; set; }

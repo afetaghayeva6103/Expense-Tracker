@@ -1,0 +1,58 @@
+﻿@model Expense_Tracker.Models.ProjectDto
+
+@{
+    ViewData["PageTitle"] = Model.Id == 0 ? "Create a new project" : "Edit project";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5" style="background-color:#212b36">
+            <form asp-action="AddOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="mb-3">
+                    <ejs-dropdownlist id="currency" ejs-for="TargetCurrency" placeholder="Select Currency" floatLabelType="Always" dataSource="@ViewBag.CurrencyList">
+                        <e-dropdownlist-fields text="Text" value="Value"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                    <span asp-validation-for="TargetCurrency" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="title" placeholder="Title" ejs-for="Title" floatLabelType="Always" multiline="true"></ejs-textbox>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="description" placeholder="Description" ejs-for="Description" floatLabelType="Always" multiline="true"></ejs-textbox>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="note" placeholder="Note" ejs-for="Note" floatLabelType="Always" multiline="true"></ejs-textbox>
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-datepicker id="startDate" ejs-for="StartDate" placeholder="Start Date" floatLabelType="Always"
+                                    format="MMM-dd-yyyy"></ejs-datepicker>
+                </div>
+                <div class="mb-3">
+                    <ejs-datepicker id="endDate" ejs-for="EndDate" placeholder="End Date" floatLabelType="Always"
+                                    format="MMM-dd-yyyy"></ejs-datepicker>
+                </div>
+                <div class="mb-3">
+                    <ejs-button id="submit" typeof="submit" content="Submit" cssClass="e-success"></ejs-button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-money-bill-transfer fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

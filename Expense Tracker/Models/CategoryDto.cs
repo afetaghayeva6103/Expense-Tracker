@@ -7,4 +7,5 @@ public class CategoryDto
     public int Id { get; set; }
     public string Title { get; set; }
     public CategoryType CategoryType { get; set; }
+    public string CategoryTypeString => CategoryType.ToString();
 }

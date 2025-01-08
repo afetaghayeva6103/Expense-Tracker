@@ -1,29 +1,36 @@
-﻿using Expense_Tracker.DataAccess.Interfaces;
+﻿using AutoMapper;
+using Expense_Tracker.DataAccess.Interfaces;
 using Expense_Tracker.Models;
 using ExpenseTracker.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expense_Tracker.Controllers
 {
-    public class CategoryController(ICategoryRepository categoryRepository) : Controller
+    public class CategoryController(ICategoryRepository categoryRepository, IMapper mapper) : Controller
     {
         public IActionResult Index()
         {
             var categories = categoryRepository.GetAll();
-
-            return View(categories);
+            var result = mapper.Map<List<CategoryDto>>(categories);
+            return View(result);
         }
 
-        public IActionResult Add(CategoryDto dto)
+        public IActionResult AddOrEdit(int id)
         {
-            var newCategory = new Category(dto.Title, dto.CategoryType);
-            return View(newCategory);
+            if (id == 0)
+                return View(new CategoryDto());
+            else
+            {
+                var category = categoryRepository.Get(id);
+                var result=mapper.Map<CategoryDto>(category);   
+                return View(result);
+            }
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddOrEdit(CategoryDto categoryDto)
+        public IActionResult AddOrEdit([Bind("Id,Title,CategoryType")] CategoryDto categoryDto)
         {
             if (ModelState.IsValid)
             {
@@ -32,6 +39,8 @@ namespace Expense_Tracker.Controllers
                 else
                 {
                     var category = categoryRepository.Get(categoryDto.Id);
+                    category.Title = categoryDto.Title;
+                    category.CategoryType =categoryDto.CategoryType;
                     categoryRepository.Update(category);
                 }
 
@@ -40,9 +49,7 @@ namespace Expense_Tracker.Controllers
             return View(categoryDto);
         }
 
-        // POST: Category/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        [HttpDelete("{id}")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
