@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Expense_Tracker.Models.ProjectDto>
+﻿@model IEnumerable<Expense_Tracker.Models.GeneralExpenseDto>
 
 @{
-    ViewData["PageTitle"] = "Project";
-    ViewData["PageActionText"] = "+ New Project";
-    ViewData["PageActionUrl"] = "/Project/AddOrEdit";
+    ViewData["PageTitle"] = "Expense";
+    ViewData["PageActionText"] = "+ New Expense";
+    ViewData["PageActionUrl"] = "/GeneralExpense/AddOrEdit";
 }
 
 <div class="row">
@@ -11,12 +11,12 @@
         <ejs-grid id="projects" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
             <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
             <e-grid-columns>
-                <e-grid-column headerText="Start Date" field="StartDate" width="110px" type="startDate" format="MMM-dd-yy"
+                <e-grid-column headerText="Expense Date" field="ExpenseDate" width="110px" type="expenseDate" format="MMM-dd-yy"
                                textAlign="Right"></e-grid-column>
-                <e-grid-column headerText="End Date" field="EndDate" width="110px" type="endDate" format="MMM-dd-yy"
-                               textAlign="Right"></e-grid-column>
-                <e-grid-column headerText="Title" field="Title" width="110px" textAlign="Right"></e-grid-column>
-                <e-grid-column headerText="Description" field="Description" width="110px" textAlign="Right"></e-grid-column>
+                
+                <e-grid-column headerText="Amount" field="Amount" width="110px" textAlign="Right"></e-grid-column>
+                <e-grid-column headerText="Expense Type" field="ExpenseTypeString" width="110px" textAlign="Right"></e-grid-column>
+                <e-grid-column headerText="Currency" field="CurrencyString" width="110px" textAlign="Right"></e-grid-column>
                 <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="100px"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
@@ -25,13 +25,13 @@
 
 <script id="actionColumnTemplate" type="text/x-template">
     <div class="d-flex flex-row justify-content-start">
-        <a class="btn btn-sm no-a-decoration" href="/Project/AddOrEdit/${Id}">
+        <a class="btn btn-sm no-a-decoration" href="/GeneralExpense/AddOrEdit/${Id}">
             <i class="fa-solid fa-pen fa-lg"></i>
         </a>
-        <a class="btn btn-sm no-a-decoration btn-info" href="/Project/Look/${Id}">
+        <a class="btn btn-sm no-a-decoration btn-info" href="/GeneralExpense/Look/${Id}">
             <i class="fa-solid fa-eye fa-lg"></i>
          </a>
-        <form action="/Project/Delete/${Id}" method="post">
+        <form action="/GeneralExpense/Delete/${Id}" method="post">
     @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-sm btn-link no-a-decoration" onclick="return confirm(&quot;Are you sure to delete this record?&quot;)">
                 <i class="fa-solid fa-trash-can fa-lg text-danger"></i>

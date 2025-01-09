@@ -7,12 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Expense_Tracker.Controllers
 {
-    public class ProjectController(IProjectRepository projectRepository, ICategoryRepository categoryRepository, IMapper mapper) : Controller
+    public class ProjectController(IProjectRepository projectRepository, IMapper mapper) : Controller
     {
         public IActionResult Index()
         {
             var projects = projectRepository.GetAll();
             var result = mapper.Map<List<ProjectDto>>(projects);
+            return View(result);
+        }
+
+        public IActionResult Look(int id)
+        {
+            PopulateCurrencies();
+            var project = projectRepository.Get(id);
+            var result=mapper.Map<ProjectDto>(project); 
             return View(result);
         }
 
@@ -31,12 +39,14 @@ namespace Expense_Tracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddOrEdit([Bind("Id,Title, Description,StartDate, EndDate,TargetCurrency,Note")] ProjectDto dto)
+        public IActionResult AddOrEdit([Bind("Id,Title, Description,StartDate, EndDate,TargetCurrency,Note, InvoiceNumber, InvoiceDocUrl, InvoiceAmount," +
+            "InvoiceTargetCurrency, InvoiceIssueDate")] ProjectDto dto)
         {
             if (ModelState.IsValid)
             {
                 if (dto.Id == 0)
-                    projectRepository.Add(new Project(dto.Title, dto.Description, dto.StartDate, dto.EndDate, dto.TargetCurrency, dto.Note));
+                    projectRepository.Add(new Project(dto.Title, dto.Description, dto.StartDate, dto.EndDate, dto.TargetCurrency, dto.Note, dto.InvoiceNumber, dto.InvoiceDocUrl,
+                        dto.InvoiceAmount, dto.InvoiceTargetCurrency, dto.InvoiceIssueDate));
                 else
                 {
                     var project = projectRepository.Get(dto.Id);
@@ -46,6 +56,11 @@ namespace Expense_Tracker.Controllers
                     project.EndDate = dto.EndDate;
                     project.TargetCurrency = dto.TargetCurrency;
                     project.Note = dto.Note;
+                    project.InvoiceNumber= dto.InvoiceNumber;
+                    project.InvoiceDocUrl = dto.InvoiceDocUrl;
+                    project.InvoiceAmount = dto.InvoiceAmount;
+                    project.InvoiceTargetCurrency = dto.InvoiceTargetCurrency;
+                    project.InvoiceIssueDate = dto.InvoiceIssueDate;
                     projectRepository.Update(project);
                 }
                 return RedirectToAction(nameof(Index));

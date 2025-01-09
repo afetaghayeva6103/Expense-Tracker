@@ -2,7 +2,7 @@
 
 namespace Expense_Tracker.Models;
 
-public class ProjectDto
+public class ProjectDetailView
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -12,11 +12,5 @@ public class ProjectDto
     public DateTime EndDate { get; set; }
     public Currency TargetCurrency { get; set; }
     public string Note { get; set; }
-     public string? InvoiceNumber { get; set; }
-    public string? InvoiceDocUrl { get; set; }
-    public decimal? InvoiceAmount { get; set; }
-    public Currency? InvoiceTargetCurrency { get; set; }
-    public DateTime? InvoiceIssueDate { get; set; }
 
-    public List<PaymentDto> Payments { get; set; }
 }

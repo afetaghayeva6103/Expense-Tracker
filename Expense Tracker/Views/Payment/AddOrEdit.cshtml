@@ -1,0 +1,54 @@
+﻿@model Expense_Tracker.Models.PaymentDto
+@{
+    ViewData["PageTitle"] = Model.Id == 0 ? "Create a new payment" : "Edit payment";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget p-5" style="background-color:#212b36">
+            <form asp-action="AddOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="mb-3">
+                    <ejs-dropdownlist id="currency" ejs-for="PaymentTargetCurrency" placeholder="Select Currency" floatLabelType="Always" dataSource="@ViewBag.CurrencyList">
+                        <e-dropdownlist-fields text="Text" value="Value"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                    <span asp-validation-for="PaymentTargetCurrency" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-dropdownlist id="ddlCategory" ejs-for="CategoryId" dataSource="@ViewBag.Categories"
+                                      placeholder="Category" floatLabelType="Always" allowFiltering="true" ignoreAccent="true" filterType="Contains" popupHeight="220px">
+                        <e-dropdownlist-fields value="CategoryId" text="Category"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                    <span asp-validation-for="CategoryId" class="text-danger fs-6"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-dropdownlist id="paymentStatus" ejs-for="PaymentStatus" placeholder="Select Payment status" floatLabelType="Always" dataSource="@ViewBag.PaymentStatuses">
+                        <e-dropdownlist-fields text="Text" value="Value"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                    <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-datepicker id="paymentDate" ejs-for="PaymentDate" placeholder="Payment Date" floatLabelType="Always"
+                                    format="MMM-dd-yyyy"></ejs-datepicker>
+                </div>
+                <div class="mb-3">
+                    <ejs-numerictextbox id="amount" placeholder="Amount" ejs-for="Amount" floatLabelType="Always" format="n2"
+                                        step="0.01"
+                                        min="0"></ejs-numerictextbox>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-button id="submit" typeof="submit" content="Submit" cssClass="e-success"></ejs-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

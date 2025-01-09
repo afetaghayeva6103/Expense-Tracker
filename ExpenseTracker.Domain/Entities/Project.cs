@@ -14,10 +14,16 @@ public class Project
     public DateTime EndDate { get; set; }
     public Currency TargetCurrency { get; set; }
     public string Note { get; set; }
-    public List<Payment> Payments { get; set; }
-    public List<Invoice> Invoices { get; set; }
 
-    public Project(string title, string description, DateTime startDate, DateTime endDate, Currency targetCurrency, string note)
+    public string? InvoiceNumber { get; set; }
+    public string? InvoiceDocUrl { get; set; }
+    public decimal? InvoiceAmount { get; set; }
+    public Currency? InvoiceTargetCurrency { get; set; }
+    public DateTime? InvoiceIssueDate { get; set; }
+    public List<Payment> Payments { get; set; }
+
+    public Project(string title, string description, DateTime startDate, DateTime endDate, Currency targetCurrency, string note, 
+        string? invoiceNumber, string? invoiceDocUrl, decimal? invoiceAmount, Currency? invoiceTargetCurrency, DateTime? invoiceIssueDate)
     {
         Title = title;
         Description = description;
@@ -26,6 +32,11 @@ public class Project
         EndDate = endDate;
         TargetCurrency = targetCurrency;
         Note = note;
+        InvoiceNumber = invoiceNumber;
+        InvoiceDocUrl = invoiceDocUrl;
+        InvoiceAmount = invoiceAmount;
+        InvoiceTargetCurrency = invoiceTargetCurrency;
+        InvoiceIssueDate = invoiceIssueDate;
     }
 
     public Project()

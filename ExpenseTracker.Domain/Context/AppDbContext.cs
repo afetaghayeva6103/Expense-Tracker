@@ -32,5 +32,4 @@ public class AppDbContext : DbContext
     public DbSet<Payment> Payments { get; set; }
     public DbSet<CurrencyRate> CurrencyRates { get; set; }
     public DbSet<GeneralExpense> GeneralExpenses { get; set; }
-    public DbSet<Invoice> Invoices { get; set; }
 }
