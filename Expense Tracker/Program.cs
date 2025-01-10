@@ -17,7 +17,7 @@ builder.Services.AddScoped<IGeneralExpenseRepository, GeneralExpenseRepository>(
 
 builder.Services.AddAutoMapper(typeof(ModelMapper));
 //Register Syncfusion license
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF1cXmhPYVJzWmFZfVpgfV9DYFZUQ2YuP1ZhSXxXdkNjUX9XdXRQQWJYU0U=");
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBPh8sVXJ8S0d+X1JPdEBKQmFJfFZmTGlZe1R0fUUmHVdTRHRaQlxjQHxSd0djXHhacXQ=");
 
 var app = builder.Build();
 

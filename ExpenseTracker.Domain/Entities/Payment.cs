@@ -6,13 +6,14 @@ namespace ExpenseTracker.Domain.Entities;
 
 public class Payment
 {
-    public Payment( int categoryId, decimal amount, Currency targetCurrency, DateTime paymentDate, PaymentStatus paymentStatus)
+    public Payment(int projectId, int categoryId, decimal amount, Currency targetCurrency, DateTime paymentDate, PaymentStatus paymentStatus)
     {
         Amount = amount;
         TargetCurrency = targetCurrency;
         PaymentDate = paymentDate;
         PaymentStatus = paymentStatus;
         CategoryId = categoryId;
+        ProjectId=projectId;
     }
 
     public Payment()

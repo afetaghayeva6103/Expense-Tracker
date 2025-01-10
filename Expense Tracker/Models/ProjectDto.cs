@@ -10,7 +10,7 @@ public class ProjectDto
     public DateTime CreateDate { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public Currency TargetCurrency { get; set; }
+    public Currency TargetCurrency { get; set; } = Currency.AZN;
     public string Note { get; set; }
      public string? InvoiceNumber { get; set; }
     public string? InvoiceDocUrl { get; set; }
@@ -18,5 +18,5 @@ public class ProjectDto
     public Currency? InvoiceTargetCurrency { get; set; }
     public DateTime? InvoiceIssueDate { get; set; }
 
-    public List<PaymentDto> Payments { get; set; }
+    public List<PaymentDto>? Payments { get; set; }
 }

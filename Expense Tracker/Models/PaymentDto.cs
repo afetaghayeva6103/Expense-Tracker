@@ -6,7 +6,8 @@ public class PaymentDto
 {
     public int Id { get; set; }
     public int CategoryId { get; set; }
-    public string CategoryName{ get; set; }
+    public int ProjectId { get; set; }
+    public string? CategoryName { get; set; }
     public decimal Amount { get; set; }
     public Currency PaymentTargetCurrency { get; set; }
     public DateTime PaymentDate { get; set; }

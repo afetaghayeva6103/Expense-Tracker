@@ -21,12 +21,12 @@ public class ProjectRepository(AppDbContext context) : IProjectRepository
 
     public Project? Get(int projectId)
     {
-        return context.Projects.Include(x=>x.Payments).FirstOrDefault(x => x.Id == projectId);
+        return context.Projects.Include(x=>x.Payments).ThenInclude(x=>x.Category).FirstOrDefault(x => x.Id == projectId);
     }
 
     public List<Project> GetAll()
     {
-        return context.Projects.Include(x=>x.Payments).ToList();
+        return context.Projects.Include(x=>x.Payments).ThenInclude(x => x.Category).ToList();
     }
 
     public void Update(Project project)

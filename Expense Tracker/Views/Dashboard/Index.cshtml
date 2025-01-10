@@ -8,40 +8,40 @@
 @*Summary Widget*@
 <div class="row mb-4">
     <div class="col-md-4">
-    <div class="d-flex flex-row widget summary income">
-        <div class="d-flex flex-column justify-content-center p-5">
-            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+        <div class="d-flex flex-row widget summary income">
+            <div class="d-flex flex-column justify-content-center p-5">
+                <span>ZLOTY</span>
+            </div>
+            <div class="d-flex flex-column m-auto py-3">
+                <span class="lead">Total Income</span>
+                <h1 class="display-6 fw-bold">@ViewBag.TotalIncome</h1>
+            </div>
         </div>
-        <div class="d-flex flex-column m-auto py-3">
-            <span class="lead">Total Income</span>
-            <h1 class="display-6 fw-bold">@ViewBag.TotalIncome</h1>
-        </div>
-    </div>
     </div>
 
     <div class="col-md-4">
-    <div class="d-flex flex-row widget summary expense">
-        <div class="d-flex flex-column justify-content-center p-5">
-            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+        <div class="d-flex flex-row widget summary expense">
+            <div class="d-flex flex-column justify-content-center p-5">
+                <span>ZLOTY</span>
+            </div>
+            <div class="d-flex flex-column m-auto py-3">
+                <span class="lead">Total Expense</span>
+                <h1 class="display-6 fw-bold">@ViewBag.TotalExpense</h1>
+            </div>
         </div>
-        <div class="d-flex flex-column m-auto py-3">
-            <span class="lead">Total Expense</span>
-            <h1 class="display-6 fw-bold">@ViewBag.TotalExpense</h1>
-        </div>
-    </div>
     </div>
 
     <div class="col-md-4">
-    <div class="d-flex flex-row widget summary balance">
-        <div class="d-flex flex-column justify-content-center p-5">
-            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
-        </div>
+        <div class="d-flex flex-row widget summary balance">
+            <div class="d-flex flex-column justify-content-center p-5">
+                <span>ZLOTY</span>
+            </div>
 
-        <div class="d-flex flex-column m-auto py-3">
-            <span class="lead">Balance</span>
-            <h1 class="display-6 fw-bold">@ViewBag.Balance</h1>
+            <div class="d-flex flex-column m-auto py-3">
+                <span class="lead">Balance</span>
+                <h1 class="display-6 fw-bold">@ViewBag.Balance</h1>
+            </div>
         </div>
-    </div>
     </div>
 </div>
 
@@ -54,9 +54,9 @@
             </div>
             <ejs-accumulationchart id="donutchart" background="#1a222b" enableSmartLabels>
                 <e-accumulation-series-collection>
-                    <e-accumulation-series dataSource="@ViewBag.DonutChartData" xName="categoryTitleWithIcon"
+                    <e-accumulation-series dataSource="@ViewBag.DonutChartData" xName="categoryName"
                                            yName="amount" innerRadius="50" legendshape="Circle">
-                        <e-accumulationseries-datalabel name="formattedAmount" visible = "true"></e-accumulationseries-datalabel>
+                        <e-accumulationseries-datalabel name="amount" visible="true"></e-accumulationseries-datalabel>
                     </e-accumulation-series>
                 </e-accumulation-series-collection>
                 <e-accumulationchart-legendsettings>
@@ -86,8 +86,8 @@
                     <e-chartarea-border width="0"></e-chartarea-border>
                 </e-chart-chartarea>
                 <e-series-collection>
-                    <e-series dataSource="@ViewBag.SplineChartData" xName="day" yName="income" name="Income" 
-                    type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline" width="3"></e-series>
+                    <e-series dataSource="@ViewBag.SplineChartData" xName="day" yName="income" name="Income"
+                              type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline" width="3"></e-series>
                     <e-series dataSource="@ViewBag.SplineChartData" xName="day" yName="expense" name="Expense"
                               type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline" width="3"></e-series>
                 </e-series-collection>
@@ -110,20 +110,29 @@
             <div class="px-4 pb-4">
                 <ejs-grid id="recent-transactions" dataSource=@ViewBag.RecentTransactions gridLines="None">
                     <e-grid-columns>
-                        <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
-                        <e-grid-column headerText="Date" field="Date" width="110px" type="date" format="MMM-dd-yy"
-                        textAlign="Left"></e-grid-column>
-                        <e-grid-column headerText="Amount" field="FormattedAmount" width="110px" textAlign="Right"></e-grid-column>
+                        <e-grid-column headerText="Category" field="CategoryName"></e-grid-column>
+                        <e-grid-column headerText="Date" field="PaymentDate" width="110px" type="date" format="MMM-dd-yy"
+                                       textAlign="Left"></e-grid-column>
+                        <e-grid-column headerText="Amount" field="Amount" width="110px" textAlign="Right"></e-grid-column>
                     </e-grid-columns>
                 </ejs-grid>
             </div>
         </div>
     </div>
-    
     <div class="col-md-6">
-        <div class="widget h-100">
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <span><i class="fa-solid fa-plus fa-2xl"></i> Widget</span>
+        <div class="widget">
+            <div class="p-4">
+                <h5 class="fw-bold">GeneralExpenses</h5>
+            </div>
+            <div class="px-4 pb-4">
+                <ejs-grid id="general-expenses" dataSource=@ViewBag.GeneralExpenses gridLines="None">
+                    <e-grid-columns>
+                        <e-grid-column headerText="Expense Type" field="ExpenseTypeString"></e-grid-column>
+                        <e-grid-column headerText="Expense Date" field="ExpenseDate" width="110px" type="date" format="MMM-dd-yy"
+                                       textAlign="Left"></e-grid-column>
+                        <e-grid-column headerText="Amount" field="Amount" width="110px" textAlign="Right"></e-grid-column>
+                    </e-grid-columns>
+                </ejs-grid>
             </div>
         </div>
     </div>

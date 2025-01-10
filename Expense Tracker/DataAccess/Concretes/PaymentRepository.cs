@@ -21,7 +21,7 @@ public class PaymentRepository(AppDbContext context) : IPaymentRepository
 
     public Payment? Get(int paymentId)
     {
-        return context.Payments.Include(x=>x.Project).FirstOrDefault(x => x.Id == paymentId);
+        return context.Payments.Include(x=>x.Project).Include(x=>x.Category).FirstOrDefault(x => x.Id == paymentId);
     }
 
     public List<Payment> GetAllByProject(int projectId)

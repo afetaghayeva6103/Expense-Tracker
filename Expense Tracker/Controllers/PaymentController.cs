@@ -9,17 +9,18 @@ namespace Expense_Tracker.Controllers;
 
 public class PaymentController(IPaymentRepository paymentRepository, IMapper mapper, ICategoryRepository categoryRepository) : Controller
 {
-    public IActionResult AddOrEdit(int id = 0)
+    public IActionResult AddOrEdit([FromRoute] int id = 0, [FromQuery] int projectId = 0)
     {
         PopulateCurrencies();
         PopulateCategories();
         PopulatePaymentStatuses();
         if (id == 0)
-            return View(new PaymentDto());
+            return View(new PaymentDto() { ProjectId = projectId });
         else
         {
             var payment = paymentRepository.Get(id);
             var result = mapper.Map<PaymentDto>(payment);
+            result.ProjectId = projectId;
             return View(result);
         }
     }
@@ -36,22 +37,23 @@ public class PaymentController(IPaymentRepository paymentRepository, IMapper map
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult AddOrEdit([Bind("Id,PaymentDate,TargetCurrency,Amount, CategoryId, PaymentStatus")] PaymentDto dto)
+    public IActionResult AddOrEdit([Bind("Id,ProjectId, PaymentDate,PaymentTargetCurrency,Amount, CategoryId, PaymentStatus")] PaymentDto dto)
     {
         if (ModelState.IsValid)
         {
             if (dto.Id == 0)
-                paymentRepository.Add(new Payment());
+                paymentRepository.Add(new Payment(dto.ProjectId, dto.CategoryId, dto.Amount, dto.PaymentTargetCurrency, dto.PaymentDate, dto.PaymentStatus));
             else
             {
                 var payment = paymentRepository.Get(dto.Id);
-                payment.Amount=dto.Amount;
+                payment.Amount = dto.Amount;
                 payment.PaymentDate = dto.PaymentDate;
-                payment.CategoryId = payment.CategoryId;
-                payment.TargetCurrency = payment.TargetCurrency;
-                payment.PaymentStatus= dto.PaymentStatus;
+                payment.CategoryId = dto.CategoryId;
+                payment.TargetCurrency = dto.PaymentTargetCurrency;
+                payment.PaymentStatus = dto.PaymentStatus;
+                paymentRepository.Update(payment);
             }
-            return RedirectToAction(nameof(Index));
+            return Redirect($"/Project/AddOrEdit/{dto.ProjectId}");
         }
         PopulateCurrencies();
         PopulateCategories();
@@ -69,7 +71,7 @@ public class PaymentController(IPaymentRepository paymentRepository, IMapper map
             paymentRepository.Delete(payment);
         }
 
-        return RedirectToAction(nameof(Index));
+        return Redirect($"/Project/AddOrEdit/{payment.Id}");
     }
 
     [NonAction]

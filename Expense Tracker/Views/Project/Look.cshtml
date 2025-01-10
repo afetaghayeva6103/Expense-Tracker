@@ -3,94 +3,120 @@
     ViewData["PageTitle"] = "Look at the project";
 }
 
+
 <div class="row">
-    <div class="col-md-7">
-        <div class="widget p-5" style="background-color:#212b36">
-            <form asp-action="Look">
+    <div class="col-md-12">
+        <div class="p-5">
+            <form asp-action="AddOrEdit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" name="id" value="@Model.Id" />
-                <div class="mb-3">
-                    <ejs-dropdownlist id="currency" ejs-for="TargetCurrency" placeholder="Select Currency" floatLabelType="Always" readonly="true" dataSource="@ViewBag.CurrencyList">
-                        <e-dropdownlist-fields text="Text" value="Value"></e-dropdownlist-fields>
-                    </ejs-dropdownlist>
-                    <span asp-validation-for="TargetCurrency" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-textbox id="title" placeholder="Title" ejs-for="Title" floatLabelType="Always" multiline="true" readonly="true"></ejs-textbox>
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-textbox id="description" placeholder="Description" ejs-for="Description" floatLabelType="Always" multiline="true" readonly="true"></ejs-textbox>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-textbox id="note" placeholder="Note" ejs-for="Note" floatLabelType="Always" multiline="true" readonly="true"></ejs-textbox>
-                    <span asp-validation-for="Note" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-datepicker id="startDate" ejs-for="StartDate" placeholder="Start Date" floatLabelType="Always"
-                                    format="MMM-dd-yyyy" readonly="true"></ejs-datepicker>
-                </div>
-                <div class="mb-3">
-                    <ejs-datepicker id="endDate" ejs-for="EndDate" placeholder="End Date" floatLabelType="Always"
-                                    format="MMM-dd-yyyy" readonly="true"></ejs-datepicker>
-                </div>
-            </form>
-        </div>
-    </div>
+                <div class="row">
+                    <div class="col gx-5 widget m-3" style="background-color:#212b36">
+                        <h4 class=" my-2">Main Details</h4>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div>
+                                    <ejs-textbox id="title" placeholder="Title" ejs-for="Title" floatLabelType="Always" multiline="false" readonly="true"></ejs-textbox>
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-0 visually-hidden">
+                                <ejs-dropdownlist id="currency" ejs-for="TargetCurrency" placeholder="Currency" floatLabelType="Always" dataSource="@ViewBag.CurrencyList">
+                                    <e-dropdownlist-fields text="Text" value="Value" readonly="true"></e-dropdownlist-fields>
+                                </ejs-dropdownlist>
+                                <span asp-validation-for="TargetCurrency" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div>
+                                    <ejs-datepicker id="startDate" ejs-for="StartDate" placeholder="Start Date" floatLabelType="Always"
+                                                    format="dd/MM/yyyy" readonly="true"></ejs-datepicker>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <ejs-datepicker id="endDate" ejs-for="EndDate" placeholder="End Date" floatLabelType="Always"
+                                                    format="dd/MM/yyyy" readonly="true"></ejs-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div>
+                                    <ejs-textbox id="description" placeholder="Description" ejs-for="Description" floatLabelType="Always" multiline="true" readonly="true"></ejs-textbox>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div>
+                                    <ejs-textbox id="note" placeholder="Note" ejs-for="Note" floatLabelType="Always" multiline="true" readonly="true"></ejs-textbox>
+                                    <span asp-validation-for="Note" class="text-danger"></span>
+                                </div>
 
-    <div class="col-md-5">
-        <div class="widget h-100 d-flex justify-content-center align-items-center">
-            <form asp-action="Look">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="mb-3">
-                    <ejs-dropdownlist id="invoiceCurrency" ejs-for="InvoiceTargetCurrency" placeholder="Select Invoice Currency" floatLabelType="Always" readonly="true" dataSource="@ViewBag.CurrencyList">
-                        <e-dropdownlist-fields text="Text" value="Value"></e-dropdownlist-fields>
-                    </ejs-dropdownlist>
-                    <span asp-validation-for="InvoiceTargetCurrency" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-textbox id="invoiceNumber" placeholder="Invoice Number" ejs-for="InvoiceNumber" floatLabelType="Always" multiline="true" readonly="true"></ejs-textbox>
-                    <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-textbox id="invoiceDocUrl" placeholder="Invoice Document Url" ejs-for="InvoiceDocUrl" floatLabelType="Always" multiline="true" readonly="true"></ejs-textbox>
-                    <span asp-validation-for="InvoiceDocUrl" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-numerictextbox id="invoiceAmount" placeholder="Invoice Amount" step="1" format="n0" ejs-for="InvoiceAmount" floatLabelType="Always" readonly="true"></ejs-numerictextbox>
-                    <span asp-validation-for="InvoiceAmount" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <ejs-datepicker id="invoiceIssueDate" ejs-for="InvoiceIssueDate" placeholder="Invoice Issue Date" floatLabelType="Always"
-                                    format="MMM-dd-yyyy" readonly="true"></ejs-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col gx-5 widget m-3" style="background-color:#212b36">
+                        <h4 class=" my-2">Invoice Details</h4>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div>
+                                    <ejs-textbox id="invoiceNumber" placeholder="Invoice Number" ejs-for="InvoiceNumber" floatLabelType="Always" multiline="false" readonly="true"></ejs-textbox>
+                                    <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <ejs-datepicker id="invoiceIssueDate" ejs-for="InvoiceIssueDate" placeholder="Invoice Issue Date" floatLabelType="Always"
+                                                    format="dd/MM/yyyy" readonly="true"></ejs-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-8">
+                                <div>
+                                    <ejs-numerictextbox id="invoiceAmount" placeholder="Invoice Amount" ejs-for="InvoiceAmount" step="1" format="n0" floatLabelType="Always" readonly="true"></ejs-numerictextbox>
+                                    <span asp-validation-for="InvoiceAmount" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-4">
+                                <div>
+                                    <ejs-dropdownlist id="invoiceCurrency" ejs-for="InvoiceTargetCurrency" placeholder="Currency" floatLabelType="Always" readonly="true" dataSource="@ViewBag.CurrencyList">
+                                        <e-dropdownlist-fields text="Text" value="Value" ></e-dropdownlist-fields>
+                                    </ejs-dropdownlist>
+                                    <span asp-validation-for="InvoiceTargetCurrency" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <ejs-textbox id="invoiceDocUrl" placeholder="Invoice Document Url" ejs-for="InvoiceDocUrl" floatLabelType="Always" multiline="false" readonly="true"></ejs-textbox>
+                                    <span asp-validation-for="InvoiceDocUrl" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-<span class='fa-solid fa-angle-right'></span>
 
 <div class="row">
     <div class="col-md-12">
         <ejs-grid id="payments" dataSource="@Model.Payments" gridLines="None" allowSorting="true" allowPaging="true">
             <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
             <e-grid-columns>
-                <e-grid-column headerText="Payment Date" field="PaymentDate" width="110px" type="paymentDate" format="MMM-dd-yy"
+                <e-grid-column headerText="Payment Date" field="PaymentDate" width="110px" type="date" format="dd/MM/yyyy"
                                textAlign="Right"></e-grid-column>
                 <e-grid-column headerText="Category" field="CategoryName" width="110px" textAlign="Right"></e-grid-column>
                 <e-grid-column headerText="Amount" field="Amount" width="110px" textAlign="Right"></e-grid-column>
-                <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="100px"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
 </div>
-
-<script id="actionColumnTemplate" type="text/x-template">
-    <div class="d-flex flex-row justify-content-start">
-        <a class="btn btn-sm no-a-decoration btn-info" href="/Payment/Look/${Id}">
-            <i class="fa-solid fa-eye fa-lg"></i>
-         </a>
-    </div>
-</script>
